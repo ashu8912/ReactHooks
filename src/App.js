@@ -1,28 +1,26 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
-
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
+import Hook from './Components/Hooks';
+import ThemeContext from './ThemeContext';
+class App extends React.Component{
+  changeThemeHandler=(event)=>{
+    const changedThemeClass=event.target.className.replace('btn btn-','');
+    const updatedTheme={...this.state.theme};
+    updatedTheme.colorClass=changedThemeClass;
+    this.setState({theme:updatedTheme});
+  }
+  state={
+    theme:{
+    colorClass:'default',
+    changeTheme:this.changeThemeHandler
+  }}
+  
+  render()
+  {
+    return <ThemeContext.Provider value={this.state.theme}><Hook/></ThemeContext.Provider>;
   }
 }
+
+
 
 export default App;
